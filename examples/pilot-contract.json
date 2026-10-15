@@ -1,0 +1,79 @@
+{
+  "contract_version": "1.0",
+  "target": {
+    "provider": "gcp",
+    "service": "bigquery",
+    "project_id": "demo-data-dev",
+    "dataset": "dv_stage0",
+    "location": "US"
+  },
+  "source_system": "sample_crm",
+  "entities": [
+    {
+      "name": "customer",
+      "business_keys": [
+        {
+          "name": "customer_id",
+          "type": "STRING"
+        }
+      ],
+      "satellites": [
+        {
+          "name": "profile",
+          "attributes": [
+            {
+              "name": "customer_name",
+              "type": "STRING"
+            },
+            {
+              "name": "email_address",
+              "type": "STRING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "order",
+      "business_keys": [
+        {
+          "name": "order_id",
+          "type": "STRING"
+        }
+      ],
+      "satellites": [
+        {
+          "name": "details",
+          "attributes": [
+            {
+              "name": "order_date",
+              "type": "DATE"
+            },
+            {
+              "name": "order_total",
+              "type": "NUMERIC"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "name": "customer_order",
+      "members": [
+        "customer",
+        "order"
+      ],
+      "satellite": {
+        "name": "context",
+        "attributes": [
+          {
+            "name": "relationship_status",
+            "type": "STRING"
+          }
+        ]
+      }
+    }
+  ]
+}
